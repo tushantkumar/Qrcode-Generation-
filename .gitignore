@@ -6,3 +6,6 @@ backend/.env
 frontend/.angular/
 *.log
 .DS_Store
+
+# Local backend data
+backend/data/
