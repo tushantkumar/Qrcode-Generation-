@@ -1,0 +1,59 @@
+<svg width="920" height="720" viewBox="0 0 920 720" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">QR code workflow illustration</title>
+  <desc id="desc">A stylized QR code card with floating workflow badges and colorful gradient shapes.</desc>
+  <rect width="920" height="720" rx="56" fill="url(#bg)"/>
+  <circle cx="152" cy="130" r="94" fill="#7C3AED" fill-opacity="0.22"/>
+  <circle cx="790" cy="562" r="122" fill="#06B6D4" fill-opacity="0.2"/>
+  <path d="M770 114C821 163 835 236 801 277C768 318 691 328 640 279C589 230 564 142 598 101C631 60 719 65 770 114Z" fill="#F59E0B" fill-opacity="0.22"/>
+  <g filter="url(#shadow)">
+    <rect x="245" y="92" width="430" height="536" rx="44" fill="white"/>
+    <rect x="278" y="126" width="364" height="82" rx="26" fill="#EEF4FF"/>
+    <circle cx="321" cy="167" r="20" fill="#2457D6"/>
+    <rect x="361" y="148" width="168" height="14" rx="7" fill="#172033"/>
+    <rect x="361" y="174" width="230" height="12" rx="6" fill="#8EA0C8"/>
+    <rect x="300" y="246" width="320" height="320" rx="34" fill="#172033"/>
+    <rect x="326" y="272" width="82" height="82" rx="14" fill="white"/>
+    <rect x="512" y="272" width="82" height="82" rx="14" fill="white"/>
+    <rect x="326" y="458" width="82" height="82" rx="14" fill="white"/>
+    <rect x="344" y="290" width="46" height="46" rx="8" fill="#172033"/>
+    <rect x="530" y="290" width="46" height="46" rx="8" fill="#172033"/>
+    <rect x="344" y="476" width="46" height="46" rx="8" fill="#172033"/>
+    <rect x="438" y="272" width="28" height="28" rx="6" fill="white"/>
+    <rect x="478" y="272" width="20" height="58" rx="6" fill="white"/>
+    <rect x="438" y="322" width="58" height="20" rx="6" fill="white"/>
+    <rect x="426" y="386" width="28" height="28" rx="6" fill="white"/>
+    <rect x="470" y="372" width="62" height="28" rx="6" fill="white"/>
+    <rect x="558" y="386" width="36" height="36" rx="8" fill="white"/>
+    <rect x="438" y="448" width="34" height="72" rx="8" fill="white"/>
+    <rect x="492" y="454" width="28" height="28" rx="6" fill="white"/>
+    <rect x="544" y="466" width="50" height="20" rx="6" fill="white"/>
+    <rect x="492" y="506" width="102" height="34" rx="8" fill="white"/>
+  </g>
+  <g filter="url(#soft)">
+    <rect x="90" y="392" width="202" height="94" rx="26" fill="white"/>
+    <circle cx="133" cy="439" r="23" fill="#DCFCE7"/>
+    <path d="M122 439L131 448L146 429" stroke="#16A34A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="171" y="420" width="76" height="12" rx="6" fill="#172033"/>
+    <rect x="171" y="444" width="92" height="10" rx="5" fill="#8EA0C8"/>
+  </g>
+  <g filter="url(#soft)">
+    <rect x="622" y="455" width="210" height="104" rx="28" fill="white"/>
+    <circle cx="673" cy="507" r="25" fill="#FEF3C7"/>
+    <path d="M673 493V521M659 507H687" stroke="#D97706" stroke-width="8" stroke-linecap="round"/>
+    <rect x="715" y="487" width="72" height="12" rx="6" fill="#172033"/>
+    <rect x="715" y="512" width="84" height="10" rx="5" fill="#8EA0C8"/>
+  </g>
+  <defs>
+    <linearGradient id="bg" x1="95" y1="72" x2="826" y2="665" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EFF6FF"/>
+      <stop offset="0.48" stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#ECFEFF"/>
+    </linearGradient>
+    <filter id="shadow" x="201" y="60" width="518" height="624" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="24" stdDeviation="22" flood-color="#172033" flood-opacity="0.18"/>
+    </filter>
+    <filter id="soft" x="62" y="364" width="798" height="223" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#172033" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+</svg>

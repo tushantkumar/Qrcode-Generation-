@@ -1,1 +1,79 @@
-{"version":1,"projects":{"qr-generator-web":{"projectType":"application","root":"","sourceRoot":"src","architect":{"build":{"builder":"@angular-devkit/build-angular:application","options":{"outputPath":"dist/qr-generator-web","index":"src/index.html","browser":"src/main.ts","polyfills":["zone.js"],"tsConfig":"tsconfig.app.json","assets":["src/favicon.ico"],"styles":["src/styles.css"]},"configurations":{"production":{"budgets":[{"type":"initial","maximumWarning":"500kb","maximumError":"1mb"}],"outputHashing":"all"}}},"serve":{"builder":"@angular-devkit/build-angular:dev-server","configurations":{"production":{"buildTarget":"qr-generator-web:build:production"}},"defaultConfiguration":"development"},"test":{"builder":"@angular-devkit/build-angular:karma","options":{"polyfills":["zone.js","zone.js/testing"],"tsConfig":"tsconfig.spec.json","assets":["src/favicon.ico"],"styles":["src/styles.css"]}}}}}},"defaultProject":"qr-generator-web"}
+{
+  "version": 1,
+  "projects": {
+    "qr-generator-web": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/qr-generator-web",
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "qr-generator-web:build:production"
+            },
+            "development": {
+              "buildTarget": "qr-generator-web:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "qr-generator-web"
+}

@@ -1,38 +1,73 @@
+import { randomUUID } from 'crypto';
+import { mkdir, readFile, writeFile } from 'fs/promises';
+import path from 'path';
 import QRCode from 'qrcode';
-import { pool } from '../db/pool';
+import { env } from '../config/env';
 import { CreateQrCodeInput, QrCodeRecord } from '../types/qr';
 
-const mapRow = (row: any): QrCodeRecord => ({
-  id: row.id,
-  purpose: row.purpose,
-  title: row.title,
-  description: row.description ?? undefined,
-  targetUrl: row.target_url,
-  amount: row.amount === null ? undefined : Number(row.amount),
-  currency: row.currency ?? undefined,
-  metadata: row.metadata,
-  qrDataUrl: row.qr_data_url,
-  createdAt: row.created_at,
-  updatedAt: row.updated_at
-});
+const dataFile = path.join(env.dataDir, 'qr-codes.json');
+let writeQueue = Promise.resolve();
+
+async function ensureDataFile(): Promise<void> {
+  await mkdir(env.dataDir, { recursive: true });
+  try {
+    await readFile(dataFile, 'utf8');
+  } catch (error: any) {
+    if (error.code !== 'ENOENT') throw error;
+    await writeFile(dataFile, '[]', 'utf8');
+  }
+}
+
+async function readQrCodes(): Promise<QrCodeRecord[]> {
+  await ensureDataFile();
+  const contents = await readFile(dataFile, 'utf8');
+  return JSON.parse(contents) as QrCodeRecord[];
+}
+
+async function writeQrCodes(records: QrCodeRecord[]): Promise<void> {
+  await ensureDataFile();
+  await writeFile(dataFile, `${JSON.stringify(records, null, 2)}\n`, 'utf8');
+}
+
+function enqueueWrite<T>(operation: () => Promise<T>): Promise<T> {
+  const next = writeQueue.then(operation, operation);
+  writeQueue = next.then(() => undefined, () => undefined);
+  return next;
+}
 
 export async function createQrCode(input: CreateQrCodeInput): Promise<QrCodeRecord> {
   const payload = JSON.stringify({ purpose: input.purpose, title: input.title, url: input.targetUrl, amount: input.amount, currency: input.currency, metadata: input.metadata ?? {} });
   const qrDataUrl = await QRCode.toDataURL(payload, { errorCorrectionLevel: 'M', margin: 2, width: 360 });
-  const result = await pool.query(
-    `INSERT INTO qr_codes (purpose, title, description, target_url, amount, currency, metadata, qr_data_url)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,
-    [input.purpose, input.title, input.description ?? null, input.targetUrl, input.amount ?? null, input.currency ?? null, input.metadata ?? {}, qrDataUrl]
-  );
-  return mapRow(result.rows[0]);
+  const now = new Date().toISOString();
+
+  const record: QrCodeRecord = {
+    id: randomUUID(),
+    purpose: input.purpose,
+    title: input.title,
+    description: input.description || undefined,
+    targetUrl: input.targetUrl,
+    amount: input.amount,
+    currency: input.currency,
+    metadata: input.metadata ?? {},
+    qrDataUrl,
+    createdAt: now,
+    updatedAt: now
+  };
+
+  return enqueueWrite(async () => {
+    const records = await readQrCodes();
+    records.unshift(record);
+    await writeQrCodes(records);
+    return record;
+  });
 }
 
 export async function listQrCodes(): Promise<QrCodeRecord[]> {
-  const result = await pool.query('SELECT * FROM qr_codes ORDER BY created_at DESC LIMIT 50');
-  return result.rows.map(mapRow);
+  const records = await readQrCodes();
+  return records.slice(0, 50);
 }
 
 export async function getQrCode(id: string): Promise<QrCodeRecord | null> {
-  const result = await pool.query('SELECT * FROM qr_codes WHERE id = $1', [id]);
-  return result.rowCount ? mapRow(result.rows[0]) : null;
+  const records = await readQrCodes();
+  return records.find((record) => record.id === id) ?? null;
 }
